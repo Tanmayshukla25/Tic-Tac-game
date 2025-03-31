@@ -1,49 +1,46 @@
 let boxClick = document.getElementsByClassName("col");
 let btn = document.getElementById("btn");
 
+let currentPlayer = "X";
+let array = Array(9).fill(null);
+let gameOver = false; // Prevent further moves after a win
 
-let currentPlayer="X"
-
-let array=Array(9).fill(null);
 Array.from(boxClick).forEach((box) => {
     box.addEventListener("click", handleClick);
 });
 
-
 function checkWinner() {
-    if (
-        (array[0] !== null && array[0] === array[1] && array[1] === array[2]) ||
-        (array[3] !== null && array[3] === array[4] && array[4] === array[5]) ||
-        (array[6] !== null && array[6] === array[7] && array[7] === array[8]) ||
-        (array[0] !== null && array[0] === array[3] && array[3] === array[6]) ||
-        (array[1] !== null && array[1] === array[4] && array[4] === array[7]) ||
-        (array[2] !== null && array[2] === array[5] && array[5] === array[8]) ||
-        (array[0] !== null && array[0] === array[4] && array[4] === array[8]) ||
-        (array[2] !== null && array[2] === array[4] && array[4] === array[6])
-    ) 
-    {
-  
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]           
+    ];
+
+    for (let pattern of winPatterns) {
+        let [a, b, c] = pattern;
+        if (array[a] && array[a] === array[b] && array[a] === array[c]) {
+            console.log(`Winner is ${array[a]}`);
+            gameOver = true; 
+            return;
+        }
     }
-    
 }
 
-
-
 function handleClick(e) {
-   const idName=  e.target;
-   const clickedBox=Number(idName.id);
-   if(array[clickedBox]!==null)
-    return;
-   array[clickedBox]=currentPlayer;
-   idName.innerText=currentPlayer;
-   currentPlayer=currentPlayer==="X"?"O":"X";
-   checkWinner();
+    if (gameOver) return; 
 
-  
+    const idName = e.target;
+    const clickedBox = Number(idName.id);
+
+    if (array[clickedBox] !== null) return;
+
+    array[clickedBox] = currentPlayer;
+    idName.innerText = currentPlayer;
+
+    checkWinner();
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
 }
 
 btn.addEventListener("click", () => {
     window.location.reload();
 });
-
-
