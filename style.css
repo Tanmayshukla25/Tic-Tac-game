@@ -3,13 +3,18 @@
     padding: 0;
     box-sizing: border-box;
 }
+#Output{
+    color: white;
+    font-size: 35px;
+}
 body{
     background-image: url(./back.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;
-    display: flex;
+  flex-direction: column;
+  display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;

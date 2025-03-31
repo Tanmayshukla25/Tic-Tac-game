@@ -1,5 +1,6 @@
 let boxClick = document.getElementsByClassName("col");
 let btn = document.getElementById("btn");
+let output = document.getElementById("Output");
 
 let currentPlayer = "X";
 let array = Array(9).fill(null);
@@ -19,12 +20,18 @@ function checkWinner() {
     for (let pattern of winPatterns) {
         let [a, b, c] = pattern;
         if (array[a] && array[a] === array[b] && array[a] === array[c]) {
-            console.log(`Winner is ${array[a]}`);
+            output.innerText = `Winner is ${array[a]}`;
             gameOver = true; 
             return;
         }
     }
+
+    if (!array.includes(null)) {  
+        output.innerText = "It's a Draw!";
+        gameOver = true;
+    }
 }
+
 
 function handleClick(e) {
     if (gameOver) return; 
