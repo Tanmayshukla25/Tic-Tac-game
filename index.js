@@ -3,7 +3,7 @@ let btn = document.getElementById("btn");
 
 let currentPlayer = "X";
 let array = Array(9).fill(null);
-let gameOver = false; // Prevent further moves after a win
+let gameOver = false;
 
 Array.from(boxClick).forEach((box) => {
     box.addEventListener("click", handleClick);
